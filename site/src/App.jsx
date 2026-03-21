@@ -151,10 +151,11 @@ function App() {
       setWethPrice(price);
       
       // Store the permit data for execution
-      if (data.permitData) {
+      if (data.quote && data.quote.methodParameters) {
         setSwapTxData({
-          permitData: data.permitData,
-          quote: data.quote
+          to: data.quote.methodParameters.to,
+          calldata: data.quote.methodParameters.calldata,
+          value: data.quote.methodParameters.value
         });
       }
     } catch (err) {
@@ -253,6 +254,8 @@ function App() {
                nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 }
              }]
            });
+        } else {
+           throw switchError;
         }
       }
 
