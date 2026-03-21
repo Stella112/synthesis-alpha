@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "description": "Synthesis Alpha Impact Trading Snap",
+  "proposedName": "Synthesis Alpha",
+  "source": {
+    "shasum": "kY1GV768YVfyKyKZOi4D4wUrJ51zGhbM8AZnlhlPlg8=",
+    "location": {
+      "npm": {
+        "filePath": "dist/bundle.js",
+        "iconPath": "images/icon.svg",
+        "packageName": "synthesis-alpha-snap",
+        "registry": "https://registry.npmjs.org/"
+      }
+    }
+  },
+  "initialPermissions": {
+    "endowment:rpc": {
+      "dapps": true,
+      "snaps": false
+    },
+    "endowment:network-access": {},
+    "endowment:page-home": {}
+  },
+  "platformVersion": "4.4.2",
+  "manifestVersion": "0.1"
+}

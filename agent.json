@@ -1,0 +1,23 @@
+{
+  "name": "Synthesis Alpha",
+  "description": "Autonomous impact trading agent deploying social dividends from MEV capture.",
+  "erc8004_identity": {
+    "contract_address": "0x607190672d7797D475BA82A923E88691C8C31005",
+    "chain_id": 84532,
+    "network": "Base Sepolia"
+  },
+  "operator": {
+    "wallet_address": "0xYOUR_OPERATOR_WALLET_HERE",
+    "role": "Agent Operator Admin"
+  },
+  "tech_stack": [
+    "Hardhat",
+    "Solidity",
+    "React",
+    "TailwindCSS",
+    "ethers.js v6",
+    "MetaMask Snaps",
+    "Python",
+    "Celo SocialConnect"
+  ]
+}

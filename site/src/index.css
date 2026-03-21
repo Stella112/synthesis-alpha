@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-darkBg text-offWhite antialiased selection:bg-mainAccent selection:text-darkBg;
+  }
+}
+
+.glow-card {
+  box-shadow: 0 0 15px rgba(102, 252, 241, 0.15);
+  transition: all 0.3s ease;
+}
+
+.glow-card:hover {
+  box-shadow: 0 0 25px rgba(102, 252, 241, 0.3);
+  transform: translateY(-2px);
+}
+
+.glow-text {
+  text-shadow: 0 0 8px rgba(102, 252, 241, 0.5);
+}
+
+/* Custom scrollbar for terminal */
+.terminal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.terminal-scroll::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background: #45a29e;
+  border-radius: 3px;
+}

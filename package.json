@@ -1,0 +1,19 @@
+{
+  "name": "synthesis-alpha",
+  "version": "1.0.0",
+  "description": "An autonomous agent that trades Uniswap V3 on Base and sends profits to Celo SocialConnect phone numbers.",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network base_sepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@openserv-labs/sdk": "^2.4.1",
+    "@openzeppelin/contracts": "^5.0.2",
+    "dotenv": "^16.4.5"
+  }
+}

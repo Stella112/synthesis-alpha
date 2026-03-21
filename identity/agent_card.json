@@ -1,0 +1,14 @@
+{
+  "name": "Synthesis Alpha",
+  "description": "An autonomous agent that trades Uniswap V3 on Base and sends profits to Celo SocialConnect phone numbers.",
+  "erc8004": {
+    "agentId": "1",
+    "contractAddress": "0x607190672d7797D475BA82A923E88691C8C31005",
+    "network": "base_sepolia"
+  },
+  "capabilities": [
+    "Impact Trading",
+    "Uniswap V3 Trading",
+    "Social Dividend Distribution via ODIS"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "synthesis-alpha-snap",
+  "version": "0.1.0",
+  "description": "MetaMask Snap for Synthesis Alpha",
+  "main": "dist/bundle.js",
+  "files": [
+    "dist/",
+    "images/",
+    "snap.manifest.json"
+  ],
+  "scripts": {
+    "build": "mm-snap build",
+    "serve": "mm-snap serve"
+  },
+  "dependencies": {
+    "@metamask/snaps-sdk": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@metamask/snaps-cli": "^6.0.0",
+    "@metamask/snaps-utils": "^12.1.1",
+    "prettier": "^3.8.1",
+    "typescript": "^5.0.4"
+  }
+}
