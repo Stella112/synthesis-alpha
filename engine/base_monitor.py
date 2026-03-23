@@ -113,4 +113,12 @@ def monitor_and_trigger():
         print(f"[Base] Error executing transaction: {e}")
 
 if __name__ == "__main__":
-    monitor_and_trigger()
+    print("Starting Base Monitor Service in background mode...")
+    while True:
+        try:
+            monitor_and_trigger()
+        except Exception as e:
+            print(f"Critical error in monitor loop: {e}")
+            
+        print("Sleeping for 10 seconds heartbeat...\n")
+        time.sleep(10)

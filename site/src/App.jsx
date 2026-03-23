@@ -107,59 +107,44 @@ function App() {
     }
   };
 
-  // Card A: Scan Uniswap
+  // Card A: Scan Market — Chainlink ETH/USD on Base + Uniswap routing
   const scanUniswap = async () => {
     setIsScanningPrice(true);
     setWethPrice(null);
     try {
-      const apiKey = import.meta.env.VITE_UNISWAP_API_KEY || "GQjfNJabwnoQEGiynrVwDPBfaxbcs_SeIkUvCmApe8k";
-      if (!apiKey) {
-         console.warn("No Uniswap API key found. Using routing simulator fallback.");
-         throw new Error("No API Key");
-      }
-      
-      // Base Mainnet token addresses
-      const WETH = "0x4200000000000000000000000000000000000006";
-      const USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
-      
-      const response = await fetch('/api/uniswap/v1/quote', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'x-universal-router-version': '2.0'
-        },
-        body: JSON.stringify({
-          tokenInChainId: 8453,
-          tokenIn: WETH,
-          tokenOutChainId: 8453,
-          tokenOut: USDC,
-          amount: "1000000000000000000",
-          type: "EXACT_INPUT",
-          swapper: walletAddress || "0x0000000000000000000000000000000000000001",
-          routingPreference: "BEST_PRICE"
-        })
-      });
-      
-      if (!response.ok) throw new Error(`Uniswap API error: ${response.status}`);
-      
-      const data = await response.json();
-      
-      // Parse the real USDC output amount (6 decimals)
-      const usdcAmount = Number(data.quote?.output?.amount || 0);
-      const price = (usdcAmount / 1e6).toFixed(2);
+      // Primary: Read Chainlink ETH/USD price feed on Base Mainnet
+      const baseProvider = new ethers.JsonRpcProvider("https://mainnet.base.org");
+      const chainlinkFeed = new ethers.Contract(
+        "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70", // Chainlink ETH/USD on Base
+        CHAINLINK_ABI,
+        baseProvider
+      );
+      const [, answer] = await chainlinkFeed.latestRoundData();
+      const price = (Number(answer) / 1e8).toFixed(2);
       setWethPrice(price);
-      
-      // Store the permit data for execution
-      if (data.quote && data.quote.methodParameters) {
-        setSwapTxData({
-          to: data.quote.methodParameters.to,
-          calldata: data.quote.methodParameters.calldata,
-          value: data.quote.methodParameters.value
+
+      // Also attempt Uniswap routing for swap calldata (optional, may fail on Vercel)
+      try {
+        const apiKey = import.meta.env.VITE_UNISWAP_API_KEY || "GQjfNJabwnoQEGiynrVwDPBfaxbcs_SeIkUvCmApe8k";
+        const WETH = "0x4200000000000000000000000000000000000006";
+        const USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+        const response = await fetch('/api/uniswap/v1/quote', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'x-universal-router-version': '2.0' },
+          body: JSON.stringify({ tokenInChainId: 8453, tokenIn: WETH, tokenOutChainId: 8453, tokenOut: USDC, amount: "1000000000000000000", type: "EXACT_INPUT", swapper: walletAddress || "0x0000000000000000000000000000000000000001", routingPreference: "BEST_PRICE" })
         });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.quote && data.quote.methodParameters) {
+            setSwapTxData({ to: data.quote.methodParameters.to, calldata: data.quote.methodParameters.calldata, value: data.quote.methodParameters.value });
+          }
+        }
+      } catch (swapErr) {
+        console.log("Uniswap routing unavailable, using Chainlink price only");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Chainlink feed error:", err);
+      // Last resort fallback
       setTimeout(() => setWethPrice((3500 + Math.random() * 100).toFixed(2)), 1200);
     } finally {
       setIsScanningPrice(false);
