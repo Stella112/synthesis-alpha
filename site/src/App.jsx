@@ -112,7 +112,7 @@ function App() {
     setIsScanningPrice(true);
     setWethPrice(null);
     try {
-      const apiKey = import.meta.env.VITE_UNISWAP_API_KEY;
+      const apiKey = import.meta.env.VITE_UNISWAP_API_KEY || "GQjfNJabwnoQEGiynrVwDPBfaxbcs_SeIkUvCmApe8k";
       if (!apiKey) {
          console.warn("No Uniswap API key found. Using routing simulator fallback.");
          throw new Error("No API Key");
