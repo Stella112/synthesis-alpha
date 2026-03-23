@@ -1,11 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/api/uniswap/:match*",
-      "destination": "https://trade-api.gateway.uniswap.org/:match*"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]
