@@ -370,11 +370,11 @@ function App() {
               Engine connected to {net.name}. Autonomous routing protocols are active and monitoring the mempool for arbitrage execution routes linked to ODIS social graph mapping.
             </p>
             <div className="flex items-center space-x-2 text-xs font-medium text-slate-400">
-               <span className="px-2 py-1 bg-slate-100 rounded border border-slate-200">ExecutionAgent</span>
+               <span className="px-2 py-1 bg-slate-100 rounded border border-slate-200">MarketAgent</span>
                <span>→</span>
                <span className="px-2 py-1 bg-slate-100 rounded border border-slate-200">IdentityAgent</span>
                <span>→</span>
-               <span className="px-2 py-1 bg-slate-100 rounded border border-slate-200">MarketAgent</span>
+               <span className="px-2 py-1 bg-slate-100 rounded border border-slate-200">ExecutionAgent</span>
             </div>
           </div>
 
@@ -405,8 +405,8 @@ function App() {
              <div className="hidden md:block absolute top-1/2 left-8 right-8 h-[1px] bg-slate-200 -z-10 border-t border-dashed border-slate-300"></div>
              
              <FlowNode icon={<Repeat size={20} />} title="Uniswap Router" desc="Oracle Pricing" />
-             <FlowNode icon={<Server size={20} />} title="Impact Engine" desc="Liquidity Execution" />
              <FlowNode icon={<ShieldCheck size={20} />} title="ODIS Enclave" desc="Privacy Mapping" />
+             <FlowNode icon={<Server size={20} />} title="Impact Engine" desc="Liquidity Execution" />
              <FlowNode icon={<Smartphone size={20} />} title="Target End User" desc="Minipay Settlement" />
           </div>
         </div>
